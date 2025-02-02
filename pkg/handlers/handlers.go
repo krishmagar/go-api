@@ -1,15 +1,37 @@
 package handlers
 
 import (
-	"github.com/krishmagar/go-api/pkg/render"
 	"net/http"
+
+	"github.com/krishmagar/go-api/pkg/config"
+	"github.com/krishmagar/go-api/pkg/render"
 )
 
-func Home(w http.ResponseWriter, r *http.Request) {
+// It is the repository used by the handlers
+var Repo *Repository
+
+// It is the repository structure
+type Repository struct {
+	App *config.AppConfig
+}
+
+// It creates a new repository
+func NewRepository(a *config.AppConfig) *Repository {
+	return &Repository{
+		App: a,
+	}
+}
+
+// It sets the repository for the handlers
+func NewHandlers(r *Repository) {
+	Repo = r
+}
+
+func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplate(w, "home.page.html")
 }
 
-func About(w http.ResponseWriter, r *http.Request) {
+func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplate(w, "about.page.html")
 }
 

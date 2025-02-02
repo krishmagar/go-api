@@ -15,15 +15,20 @@ var functions = template.FuncMap{}
 
 var app *config.AppConfig
 
-// NewTemplates sets the "var app *config.AppConfig"
+// This function sets the "var app *config.AppConfig"
 func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
 // This function renders templates using html/template
 func RenderTemplate(w http.ResponseWriter, html string) {
+	var tempCache map[string]*template.Template
 
-	tempCache := app.TemplateCache
+	if app.UseCache {
+		tempCache = app.TemplateCache
+	} else {
+		tempCache, _ = CreateTemplateCache()
+	}
 
 	temp, ok := tempCache[html]
 	if !ok {
