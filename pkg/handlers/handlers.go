@@ -33,7 +33,15 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "about.page.html", &models.TemplateData{})
+	// Business Logic
+	stringMap := make(map[string]string)
+	stringMap["test"] = "Hello, again."
+
+	//
+
+	render.RenderTemplate(w, "about.page.html", &models.TemplateData{
+		StringMap: stringMap,
+	})
 }
 
 // func Divide(w http.ResponseWriter, r *http.Request) {
