@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 
 	"github.com/krishmagar/go-api/pkg/config"
+	"github.com/krishmagar/go-api/pkg/models"
 )
 
 var functions = template.FuncMap{}
@@ -21,7 +22,7 @@ func NewTemplates(a *config.AppConfig) {
 }
 
 // This function renders templates using html/template
-func RenderTemplate(w http.ResponseWriter, html string) {
+func RenderTemplate(w http.ResponseWriter, html string, tempData *models.TemplateData) {
 	var tempCache map[string]*template.Template
 
 	if app.UseCache {
@@ -39,7 +40,7 @@ func RenderTemplate(w http.ResponseWriter, html string) {
 
 	buf := new(bytes.Buffer) // Creates a new buffer variable
 
-	err := temp.Execute(buf, nil) // Execute the template and write output to the buffer
+	err := temp.Execute(buf, tempData) // Execute the template and write output to the buffer
 	if err != nil {
 		log.Println("Error executing template:", err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)

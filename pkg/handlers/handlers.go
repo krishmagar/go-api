@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/krishmagar/go-api/pkg/config"
+	"github.com/krishmagar/go-api/pkg/models"
 	"github.com/krishmagar/go-api/pkg/render"
 )
 
@@ -28,11 +29,11 @@ func NewHandlers(r *Repository) {
 }
 
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "home.page.html")
+	render.RenderTemplate(w, "home.page.html", &models.TemplateData{})
 }
 
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "about.page.html")
+	render.RenderTemplate(w, "about.page.html", &models.TemplateData{})
 }
 
 // func Divide(w http.ResponseWriter, r *http.Request) {
