@@ -99,7 +99,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 		// If layout templates exist, parse them
 		if len(layouts) > 0 {
 			// Add the parsed layout templates to the existing parsed page
-			// template instance (ts); Fully parsed template (page + layout)
+			// template instance (ts); Fully parsed template (page + layouts)
 			ts, err = ts.ParseFiles(layouts...)
 			if err != nil {
 				log.Println("Error parsing layout templates:", err)
