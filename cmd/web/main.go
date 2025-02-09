@@ -25,7 +25,6 @@ func main() {
 
 	repo := handlers.NewRepository(&app)
 	handlers.NewHandlers(repo)
-
 	render.NewTemplates(&app) // Provide AppConfig access to the render package
 
 	fmt.Println(fmt.Sprintf("Starting application on port%s", PORT))

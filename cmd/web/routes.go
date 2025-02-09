@@ -3,16 +3,20 @@ package main
 import (
 	"net/http"
 
-	"github.com/bmizerany/pat"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 	"github.com/krishmagar/go-api/pkg/config"
 	"github.com/krishmagar/go-api/pkg/handlers"
 )
 
 func routes(app *config.AppConfig) http.Handler {
-	mux := pat.New()
+	router := chi.NewRouter()
 
-	mux.Get("/", http.HandlerFunc(handlers.Repo.Home))
-	mux.Get("/about", http.HandlerFunc(handlers.Repo.About))
+	router.Use(middleware.Recoverer)
+	router.Use(NoSurf)
 
-	return mux
+	router.Get("/", handlers.Repo.Home)
+	router.Get("/about", handlers.Repo.About)
+
+	return router
 }
