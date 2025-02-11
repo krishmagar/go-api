@@ -8,8 +8,13 @@ import (
 	"github.com/krishmagar/go-api/pkg/render"
 )
 
-// It is the repository used by the handlers
+// It is the repo variable used by the handlers
 var Repo *Repository
+
+// This function sets the value of Repo variable
+func NewHandlers(r *Repository) {
+	Repo = r
+}
 
 // It is the repository structure
 type Repository struct {
@@ -21,11 +26,6 @@ func NewRepository(a *config.AppConfig) *Repository {
 	return &Repository{
 		App: a,
 	}
-}
-
-// It sets the repository for the handlers
-func NewHandlers(r *Repository) {
-	Repo = r
 }
 
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
