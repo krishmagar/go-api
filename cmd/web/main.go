@@ -20,13 +20,16 @@ func main() {
 	if err != nil {
 		log.Fatal("Cannot create template cache")
 	}
-	app.TemplateCache = tempCache // set TemplateCache in the AppConfig
+	// set TemplateCache in the AppConfig
+	app.TemplateCache = tempCache
 	app.UseCache = false
 
+	// set Handlers
 	repo := handlers.NewRepository(&app)
 	handlers.NewHandlers(repo)
 
-	render.NewTemplates(&app) // Provide AppConfig access to the render package
+	// Provide AppConfig access to the render package
+	render.NewTemplates(&app)
 
 	fmt.Println(fmt.Sprintf("Starting application on port%s", PORT))
 
